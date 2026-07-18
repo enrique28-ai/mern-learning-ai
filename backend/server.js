@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
@@ -11,7 +12,6 @@ import errorHandler from './middleware/errorHandler.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();
 
 const app = express();
 
@@ -44,3 +44,5 @@ process.on('unhandledRejection', (err) => {
     console.log(`Error: ${err.message}`);
     process.exit(1);
 });
+
+export default app;
