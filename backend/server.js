@@ -15,7 +15,6 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-connectDB();
 
 app.use(cors({origin: "*", methods: ["GET", "POST", "PUT", "DELETE"], allowedHeaders: ["Content-Type", "Authorization"], credentials: true}));
 app.use(express.json());
@@ -34,7 +33,7 @@ app.use((req, res) => {
 });
 
 
-const PORT = process.env.PORT || 8000;
+/*const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
     console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`);
@@ -44,5 +43,26 @@ process.on('unhandledRejection', (err) => {
     console.log(`Error: ${err.message}`);
     process.exit(1);
 });
+
+export default app;*/
+
+const PORT = process.env.PORT || 8000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(
+        `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
+      );
+    });
+  } catch (error) {
+    console.error(`MongoDB connection failed: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 export default app;
